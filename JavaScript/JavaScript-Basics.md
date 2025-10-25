@@ -23,14 +23,146 @@ JavaScript is a dynamic programming language that's used for web development, mo
 ## Variables and Data Types
 
 ### Variables
-Variables are containers for storing data. In JavaScript, we have three ways to declare variables:
+
+#### 1. Definition
+
+Variables are **named containers** used to store data values in memory. They allow developers to reuse and manipulate data throughout a program.
+
+In JavaScript, a variable can hold any type of data — numbers, strings, booleans, objects, functions, arrays, etc.
+
+---
+
+#### 2. Ways to Declare Variables
+
+JavaScript provides **three** ways to declare variables:
+
+1. **`var`** – Introduced in ES5 (legacy). Function-scoped or globally scoped.
+2. **`let`** – Introduced in ES6. Block-scoped and can be reassigned.
+3. **`const`** – Introduced in ES6. Block-scoped but cannot be reassigned.
+
+Example:
+
 ```javascript
-// Scope notes: `let` and `const` are block-scoped (limited to the nearest { } block).
-// `var` is function-scoped (or global when declared outside a function) — legacy behavior.
-let name = "Rahul";         // block-scoped — can be reassigned within the block
-const age = 25;             // block-scoped constant — cannot be reassigned
-var school = "DPS";         // function-scoped (pre-ES6); if declared at top-level becomes global
+var city = "Delhi";   // Function-scoped
+let name = "Rahul";   // Block-scoped, re-assignable
+const age = 25;        // Block-scoped, NOT re-assignable
 ```
+
+---
+
+#### 3. Scope of Variables
+
+**Scope** defines the accessibility or visibility of a variable.
+
+| Type    | Scope Type                        | Description                                                                              |
+| ------- | --------------------------------- | ---------------------------------------------------------------------------------------- |
+| `var`   | **Function Scope / Global Scope** | Visible throughout the function or globally if declared outside any function.            |
+| `let`   | **Block Scope**                   | Visible only within the nearest `{}` block (like inside loops, if blocks, or functions). |
+| `const` | **Block Scope**                   | Same as `let`, but cannot be reassigned.                                                 |
+
+Example:
+
+```javascript
+function example() {
+    if (true) {
+        var a = 10;   // function-scoped
+        let b = 20;   // block-scoped
+        const c = 30; // block-scoped
+    }
+
+    console.log(a); // Works (same function)
+    console.log(b); // Error (block-scoped)
+    console.log(c); // Error (block-scoped)
+}
+```
+
+---
+
+#### 4. Differences Between `var`, `let`, and `const`
+
+##### (a) `var` vs `let`
+
+| Feature            | `var`                                  | `let`                                            |
+| ------------------ | -------------------------------------- | ------------------------------------------------ |
+| **Scope**          | Function or global                     | Block                                            |
+| **Hoisting**       | Hoisted (initialized as `undefined`)   | Hoisted but not initialized (Temporal Dead Zone) |
+| **Re-declaration** | Allowed                                | Not allowed in the same scope                    |
+| **Re-assignment**  | Allowed                                | Allowed                                          |
+| **Use Case**       | Legacy code or function-wide variables | Modern, block-level variable declarations        |
+
+Example:
+
+```javascript
+var x = 10;
+var x = 20; // Allowed
+
+let y = 10;
+let y = 20; // Error: Identifier 'y' has already been declared
+```
+
+---
+
+##### (b) `let` vs `const`
+
+| Feature            | `let`                       | `const`                      |
+| ------------------ | --------------------------- | ---------------------------- |
+| **Scope**          | Block                       | Block                        |
+| **Re-declaration** | Not allowed                 | Not allowed                  |
+| **Re-assignment**  | Allowed                     | Not allowed                  |
+| **Hoisting**       | Yes (TDZ applies)           | Yes (TDZ applies)            |
+| **Use Case**       | When variable value changes | When variable value is fixed |
+
+Example:
+
+```javascript
+let name = "Rahul";
+name = "Raj"; // Allowed
+
+const age = 25;
+age = 26; // Error: Assignment to constant variable
+```
+
+---
+
+##### (c) `var` vs `const`
+
+| Feature            | `var`                              | `const`                                                           |
+| ------------------ | ---------------------------------- | ----------------------------------------------------------------- |
+| **Scope**          | Function/Global                    | Block                                                             |
+| **Re-declaration** | Allowed                            | Not allowed                                                       |
+| **Re-assignment**  | Allowed                            | Not allowed                                                       |
+| **Hoisting**       | Yes (initialized as `undefined`)   | Yes (TDZ applies)                                                 |
+| **Mutability**     | Fully mutable                      | Constant reference (can’t reassign, but object values can change) |
+| **Use Case**       | Old JS style, avoid in modern code | For constants or fixed references                                 |
+
+Example:
+
+```javascript
+var car = "BMW";
+car = "Audi"; // Allowed
+
+const bike = "Hero";
+bike = "Bajaj"; // Error
+```
+
+---
+
+#### 5. Summary Table
+
+| Keyword | Scope           | Hoisting        | Re-declaration | Re-assignment | Best Use Case          |
+| ------- | --------------- | --------------- | -------------- | ------------- | ---------------------- |
+| `var`   | Function/Global | Yes (undefined) |   Yes          |  Yes         | Avoid in modern JS     |
+| `let`   | Block           | Yes (TDZ)       |   No           |  Yes         | When value will change |
+| `const` | Block           | Yes (TDZ)       |   No           |  No          | When value is constant |
+
+---
+
+#### 6. Practical Tip
+
+* Prefer **`const`** by default.
+* Use **`let`** when you know a variable's value will change.
+* Avoid **`var`** unless maintaining legacy code.
+
 
 ### Data Types
 1. **String**
@@ -514,3 +646,4 @@ form.addEventListener("submit", (event) => {
     // Handle form submission
 });
 ```
+ 
